@@ -1,0 +1,1 @@
+Deliver the row editor and checked-in regression tests together. Verify from the repository root with `node --test`, the command used by the existing pull-request `test` job in `.github/workflows/ci.yml`. The Node tests cover Todo state and persistence. A browser smoke check covers the editor controls and cancellation. The host writes the reviewed records.

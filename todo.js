@@ -36,6 +36,13 @@ function createTodoApp(storage) {
       save();
       return true;
     },
+    rename: function (index, input) {
+      var text = input.trim();
+      if (!tasks[index] || !text) return false;
+      tasks[index].text = text;
+      save();
+      return true;
+    },
     setCompleted: function (index, completed) {
       if (!tasks[index]) return;
       tasks[index].completed = completed;

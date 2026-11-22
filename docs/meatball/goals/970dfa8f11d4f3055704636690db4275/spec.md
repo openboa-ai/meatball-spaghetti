@@ -1,0 +1,3 @@
+The row editor starts with the current name. **Save** updates the same row immediately and persists the new name, trimming surrounding whitespace as **Add** does. **Cancel** and saves with empty or whitespace-only text preserve the last saved name. A rename preserves completion status, list order, the selected filter, and the total incomplete count.
+
+With a completed task stored before an active task, rename the only row in **Active**. The new name appears immediately and is still there after reload when **Active** is selected again. The count stays at one and the completed task keeps its original name. A near miss is updating the hidden completed task because the save used the visible row's position.

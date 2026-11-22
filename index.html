@@ -50,6 +50,32 @@
           render();
         });
         label.append(checkbox, document.createTextNode(' ' + task.text));
+        var edit = document.createElement('button');
+        edit.type = 'button';
+        edit.textContent = 'Edit';
+        edit.setAttribute('aria-label', 'Edit ' + task.text);
+        edit.addEventListener('click', function () {
+          var editor = document.createElement('form');
+          var draft = document.createElement('input');
+          draft.type = 'text';
+          draft.value = task.text;
+          draft.setAttribute('aria-label', 'Task name');
+          var save = document.createElement('button');
+          save.type = 'submit';
+          save.textContent = 'Save';
+          var cancel = document.createElement('button');
+          cancel.type = 'button';
+          cancel.textContent = 'Cancel';
+          cancel.addEventListener('click', render);
+          editor.addEventListener('submit', function (event) {
+            event.preventDefault();
+            todo.rename(task.index, draft.value);
+            render();
+          });
+          editor.append(draft, ' ', save, ' ', cancel);
+          item.replaceChildren(editor);
+          draft.focus();
+        });
         var remove = document.createElement('button');
         remove.type = 'button';
         remove.textContent = 'Remove';
@@ -58,7 +84,7 @@
           todo.remove(task.index);
           render();
         });
-        item.append(label, ' ', remove);
+        item.append(label, ' ', edit, ' ', remove);
         list.append(item);
       });
     }
