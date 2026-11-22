@@ -13,7 +13,15 @@
       <input id="task" name="task" type="text" autocomplete="off">
       <button type="submit">Add</button>
     </form>
+    <fieldset>
+      <legend>Show tasks</legend>
+      <label><input type="radio" name="filter" value="all" checked> All</label>
+      <label><input type="radio" name="filter" value="active"> Active</label>
+      <label><input type="radio" name="filter" value="completed"> Completed</label>
+    </fieldset>
+    <p id="count" aria-live="polite"></p>
     <ul id="tasks" aria-label="Tasks"></ul>
+    <p id="empty" hidden>No tasks match this filter.</p>
     <p><a href="calculator.html">Spaghetti calculator</a></p>
   </main>
   <script src="todo.js"></script>
@@ -22,17 +30,23 @@
     var form = document.getElementById('todo-form');
     var input = document.getElementById('task');
     var list = document.getElementById('tasks');
+    var count = document.getElementById('count');
+    var empty = document.getElementById('empty');
+    var filter = 'all';
 
     function render() {
+      var view = todo.getView(filter);
+      count.textContent = view.incompleteCount + ' incomplete';
+      empty.hidden = view.rows.length !== 0;
       list.replaceChildren();
-      todo.getTasks().forEach(function (task, index) {
+      view.rows.forEach(function (task) {
         var item = document.createElement('li');
         var label = document.createElement('label');
         var checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = task.completed;
         checkbox.addEventListener('change', function () {
-          todo.setCompleted(index, checkbox.checked);
+          todo.setCompleted(task.index, checkbox.checked);
           render();
         });
         label.append(checkbox, document.createTextNode(' ' + task.text));
@@ -41,7 +55,7 @@
         remove.textContent = 'Remove';
         remove.setAttribute('aria-label', 'Remove ' + task.text);
         remove.addEventListener('click', function () {
-          todo.remove(index);
+          todo.remove(task.index);
           render();
         });
         item.append(label, ' ', remove);
@@ -49,6 +63,12 @@
       });
     }
 
+    document.querySelectorAll('input[name="filter"]').forEach(function (control) {
+      control.addEventListener('change', function () {
+        filter = control.value;
+        render();
+      });
+    });
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       if (todo.add(input.value)) {

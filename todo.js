@@ -18,6 +18,17 @@ function createTodoApp(storage) {
         return { text: task.text, completed: task.completed };
       });
     },
+    getView: function (filter) {
+      var incompleteCount = 0;
+      var rows = [];
+      tasks.forEach(function (task, index) {
+        if (!task.completed) incompleteCount++;
+        if (filter === 'active' && task.completed) return;
+        if (filter === 'completed' && !task.completed) return;
+        rows.push({ index: index, text: task.text, completed: task.completed });
+      });
+      return { rows: rows, incompleteCount: incompleteCount };
+    },
     add: function (input) {
       var text = input.trim();
       if (!text) return false;
