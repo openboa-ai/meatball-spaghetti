@@ -1,0 +1,1 @@
+Make the repository home page a dependency-free English Todo app that remembers the task list across reloads. Keep the existing spaghetti calculator reachable from the home page.

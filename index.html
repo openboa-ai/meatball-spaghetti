@@ -3,27 +3,60 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Spaghetti Calculator</title>
+  <title>Todo</title>
 </head>
 <body>
   <main>
-    <h1>Spaghetti Calculator</h1>
-    <form id="calculator" novalidate>
-      <label for="servings">Number of servings</label>
-      <input id="servings" name="servings" type="text" inputmode="numeric" autocomplete="off">
-      <button type="submit">Calculate</button>
+    <h1>Todo</h1>
+    <form id="todo-form">
+      <label for="task">New task</label>
+      <input id="task" name="task" type="text" autocomplete="off">
+      <button type="submit">Add</button>
     </form>
-    <p id="result" aria-live="polite"></p>
+    <ul id="tasks" aria-label="Tasks"></ul>
+    <p><a href="calculator.html">Spaghetti calculator</a></p>
   </main>
-  <script src="calculator.js"></script>
+  <script src="todo.js"></script>
   <script>
-    document.getElementById('calculator').addEventListener('submit', function (event) {
+    var todo = createTodoApp(window.localStorage);
+    var form = document.getElementById('todo-form');
+    var input = document.getElementById('task');
+    var list = document.getElementById('tasks');
+
+    function render() {
+      list.replaceChildren();
+      todo.getTasks().forEach(function (task, index) {
+        var item = document.createElement('li');
+        var label = document.createElement('label');
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = task.completed;
+        checkbox.addEventListener('change', function () {
+          todo.setCompleted(index, checkbox.checked);
+          render();
+        });
+        label.append(checkbox, document.createTextNode(' ' + task.text));
+        var remove = document.createElement('button');
+        remove.type = 'button';
+        remove.textContent = 'Remove';
+        remove.setAttribute('aria-label', 'Remove ' + task.text);
+        remove.addEventListener('click', function () {
+          todo.remove(index);
+          render();
+        });
+        item.append(label, ' ', remove);
+        list.append(item);
+      });
+    }
+
+    form.addEventListener('submit', function (event) {
       event.preventDefault();
-      var grams = calculateGrams(document.getElementById('servings').value);
-      document.getElementById('result').textContent = grams === null
-        ? 'Please enter a positive whole number of servings.'
-        : grams + ' grams';
+      if (todo.add(input.value)) {
+        input.value = '';
+        render();
+      }
     });
+    render();
   </script>
 </body>
 </html>
