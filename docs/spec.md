@@ -1,0 +1,1 @@
+Accept positive whole serving counts and calculate 100 grams per serving. Entering `1` shows 100 grams and entering `3` shows 300 grams. Blank, zero, negative, fractional, and malformed inputs show an English validation message and clear any previous total. A calculator that truncates `2.5` and shows 200 grams fails acceptance.
