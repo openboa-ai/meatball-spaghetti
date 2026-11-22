@@ -1,0 +1,1 @@
+Let users rename a Todo directly in its row and keep the new name across reloads.
