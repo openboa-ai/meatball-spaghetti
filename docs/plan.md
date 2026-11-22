@@ -1,0 +1,1 @@
+Deliver the page and its regression tests together. Use `node --test` from the repository root, matching the existing PR check in `.github/workflows/ci.yml`. The Node tests cover calculation and validation. A manual browser check covers form wiring and displayed feedback. Preserve the existing workflow and repository settings.
