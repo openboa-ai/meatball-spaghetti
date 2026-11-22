@@ -1,0 +1,1 @@
+Deliver the filters and regression coverage together. Verify with `node --test` from the repository root, matching the existing pull-request `test` job in `.github/workflows/ci.yml`. Use a browser smoke check for control wiring and calculator navigation. Preserve the required workflow, repository settings, and protected files. The host writes the reviewed goal records.
