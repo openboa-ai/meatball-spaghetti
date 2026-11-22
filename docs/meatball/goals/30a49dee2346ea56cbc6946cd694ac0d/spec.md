@@ -1,0 +1,3 @@
+Clicking **Add** or pressing **Enter** in the task field adds exactly one task when the input contains non-whitespace text. Empty and whitespace-only submissions add nothing. Users can mark each task complete or incomplete and remove it. Reloading restores the list and completion states, and removed tasks stay gone. A visible link opens the spaghetti calculator, where `3` servings still yields `300 grams`.
+
+A near miss is a task that appears complete before reload and returns incomplete afterward.

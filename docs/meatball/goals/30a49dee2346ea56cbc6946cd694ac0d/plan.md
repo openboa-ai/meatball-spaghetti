@@ -1,0 +1,1 @@
+Deliver the Todo app and its regression tests in one task. Use `node --test` from the repository root, matching the existing required pull-request job in `.github/workflows/ci.yml`. Check form wiring, reload behavior, and calculator navigation in a browser. Work within the writable grant and preserve the required workflow, repository settings, and protected `calculator.test.js`.

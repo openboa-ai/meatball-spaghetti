@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spaghetti Calculator</title>
+</head>
+<body>
+  <main>
+    <h1>Spaghetti Calculator</h1>
+    <form id="calculator" novalidate>
+      <label for="servings">Number of servings</label>
+      <input id="servings" name="servings" type="text" inputmode="numeric" autocomplete="off">
+      <button type="submit">Calculate</button>
+    </form>
+    <p id="result" aria-live="polite"></p>
+  </main>
+  <script src="calculator.js"></script>
+  <script>
+    document.getElementById('calculator').addEventListener('submit', function (event) {
+      event.preventDefault();
+      var grams = calculateGrams(document.getElementById('servings').value);
+      document.getElementById('result').textContent = grams === null
+        ? 'Please enter a positive whole number of servings.'
+        : grams + ' grams';
+    });
+  </script>
+</body>
+</html>
