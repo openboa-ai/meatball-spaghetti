@@ -22,6 +22,7 @@
     <p id="count" aria-live="polite"></p>
     <ul id="tasks" aria-label="Tasks"></ul>
     <p id="empty" hidden>No tasks match this filter.</p>
+    <button id="clear-completed" type="button">Clear completed</button>
     <p><a href="calculator.html">Spaghetti calculator</a></p>
   </main>
   <script src="todo.js"></script>
@@ -94,6 +95,10 @@
         filter = control.value;
         render();
       });
+    });
+    document.getElementById('clear-completed').addEventListener('click', function () {
+      todo.clearCompleted();
+      render();
     });
     form.addEventListener('submit', function (event) {
       event.preventDefault();
