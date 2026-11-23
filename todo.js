@@ -48,6 +48,13 @@ function createTodoApp(storage) {
       tasks[index].completed = completed;
       save();
     },
+    clearCompleted: function () {
+      var previousCount = tasks.length;
+      tasks = tasks.filter(function (task) { return !task.completed; });
+      var removed = previousCount - tasks.length;
+      if (removed) save();
+      return removed;
+    },
     remove: function (index) {
       if (index < 0 || index >= tasks.length) return;
       tasks.splice(index, 1);
